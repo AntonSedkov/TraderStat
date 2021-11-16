@@ -1,0 +1,1 @@
+Traders&apos; statistics are calculated based on user reviews
