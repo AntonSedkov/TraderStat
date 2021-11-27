@@ -1,7 +1,7 @@
 Project estimation:
-+ Task 1 - Model structure: 9 hours
++ Task 1 - Model structure: 8 hours
     + Project base settings (empty project, git + github, estimation): 3 hours
-    + Sql-scripts for H2 (schema.sql, data.sql) + pdf of database structure: 3 hours
+    + Sql-scripts for H2 (schema.sql, data.sql) + pdf of database structure: 2 hours
     + Entities: 3 hours
 + Task 2 - User services: 8 hours
     + Add a trader and a moderator: 1 hour
