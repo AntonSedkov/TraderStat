@@ -18,7 +18,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotBlank(message = "Comment message is required")
     private String message;
@@ -31,9 +31,15 @@ public class Comment {
     @Size(min = 3, max = 64, message = "Reviewer name must be at least 3 characters long, but less than 64 characters")
     private String reviewer;
 
-    @Column(name = "id_post_fk")
     @ManyToOne
-    @JoinColumn(table = "trader_posts", name = "id")
+    @JoinColumns({
+            @JoinColumn(
+                    name = "id_post_fk_trader",
+                    referencedColumnName = "id_trader_fk"),
+            @JoinColumn(
+                    name = "id_post_fk_game",
+                    referencedColumnName = "id_game_fk")
+    })
     private TraderPost post;
 
     @Column(name = "created_at", updatable = false)
@@ -54,12 +60,5 @@ public class Comment {
     public void onUpdate() {
         this.setModifiedAt(LocalDateTime.now());
     }
-
-  /*
-
-    id_post_fk varchar(64) not null,
-    created_at timestamp   not null,
-    approved   boolean     not null default false,
-    foreign key (id_post_fk) references trader_posts (id)*/
 
 }
