@@ -9,7 +9,7 @@ VALUES (1, 'Admin', 'Admin', '{noop}pass', 'admin@uni.tr', '27-11-21 12:00:01', 
 
 DELETE
 FROM games;
-INSERT INTO games (id, title)
+INSERT INTO games (id, name)
 VALUES (1, 'FIFA'),
        (2, 'DOTA'),
        (3, 'CS:GO'),
@@ -28,8 +28,8 @@ VALUES (1, 2, 1),
        (8, 6, 4);
 
 DELETE
-FROM comments;
-INSERT INTO comments (id, message, rate, author, id_post_fk, created_at, approved)
+FROM reviews;
+INSERT INTO reviews (id, message, rating, reviewer, id_post_fk, created_at, approved)
 VALUES (1, 'Really good seller', 10, 'Author_1', 1, '27-12-21 12:00:01', true),
        (2, 'Awful service', 1, 'Couch potato', 5, '28-12-21 13:10:02', true),
        (3, 'You can do better', 4, 'Couch potato', 8, '07-12-21 13:10:02', false),

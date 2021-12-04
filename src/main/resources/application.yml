@@ -1,0 +1,119 @@
+server:
+  port: 8089
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+
+  datasource:
+    generate-unique-name: false
+    name: traderstat
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:traderstat;DB_CLOSE_DELAY=-1
+    username: admin
+    password: admin
+    # tcp: jdbc:h2:tcp://localhost:9092/mem:voting
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: false
+
+  jpa:
+    show-sql: true
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+
+  sql:
+    init:
+      mode: always
+
+
+
+
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  sql:
+    init:
+      mode: never
+
+
+
+data:
+  rest:
+    base-path: /api
+    default-page-size: 5
+    return-body-on-create: true
+    return-body-on-update: true
+
+
+
+
+
+
+      security:
+        oauth2:
+          client:
+            registration:
+              github:
+                clientId: github-client-id
+                clientSecret: github-client-secret
+                scope: email, public_profile
+      data:
+        rest:
+          base-path: /api
+          return-body-on-create: true
+          default-page-size: 20
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: [beans, health, metrics, env]
+
+logging:
+  file:
+    path: /info/logs/
+    name: taco.log
+  level:
+    root: INFO
+    org.springframework.security: DEBUG
+---
+logging:
+  level:
+    root: WARN
+    by.anthony.hateoasexample: DEBUG
+    org.springframework.security.web.FilterChainProxy: DEBUG
+
+taco:
+  orders:
+    pageSize: 10
+
+app:
+  city-name: Minsk
+  openweather-api-key: 7189ec81afd1e9cd5869906b50c18bc4
+
+
+  datasource:
+    url: jdbc:mysql://localhost/tacocloud
+    username: tacouser
+    password: tacopassword
+  logging:
+    level:
+      tacos: WARN
