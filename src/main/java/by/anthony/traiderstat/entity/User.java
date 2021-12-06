@@ -1,5 +1,6 @@
 package by.anthony.traiderstat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -22,7 +23,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "first_name")
     @NotBlank(message = "First name is required")
@@ -47,16 +48,23 @@ public class User {
     //todo "Unique check?"
     private String email;
 
-    @Column(name = "create_at", updatable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @Column(insertable = true, updatable = false)
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "trader", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    //todo "Does it need ?"
-    private List<TraderPost> posts;
+    private boolean approved;
+
+    @JsonIgnoreProperties("traders")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "trader_posts",
+            joinColumns = @JoinColumn(name = "id_trader_fk"),
+            inverseJoinColumns = @JoinColumn(name = "id_game_fk")
+    )
+    private Set<Game> games;
 
     @PrePersist
     public void onCreate() {
